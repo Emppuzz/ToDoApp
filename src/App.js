@@ -8,6 +8,9 @@ import EmptyListChecker from './components/EmptyListChecker';
 
 const App = () => {
   const [toDoList, setToDoList] = useState([])
+
+  // Tilamuuttuja syötelomaketta varten
+  // newToDo heijastaa koko ajan syötekentän arvoa
   const [newToDo, setNewToDo] = useState('')
   const [counter, setCounter] = useState(1)
 
@@ -21,7 +24,7 @@ const App = () => {
       check: false  
     }
     setToDoList(toDoList.concat(toDoObject))
-
+    
     setCounter(counter + 1)
     console.log(`Amount of tasks: ${counter}`)
 
@@ -35,6 +38,8 @@ const App = () => {
     }
   }
 
+  // Asettaa syötetyn tekstin uudeksi toDoksi
+  // Nappaa kaiken mitä tekstikenttään syötetään
   const handleToDoChange = (event) => {
     setNewToDo(event.target.value)
   }
