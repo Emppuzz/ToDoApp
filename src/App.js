@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css';
 import { RiCloseCircleLine } from "react-icons/ri"
 import { BsFillPatchCheckFill } from "react-icons/bs"
 import TodoForm from './components/TodoForm';
 import AllTodos from './components/AllTodos';
 import EmptyListChecker from './components/EmptyListChecker';
+import todoService from './services/todos';
 
 const App = () => {
   const [toDoList, setToDoList] = useState([])
@@ -13,6 +14,14 @@ const App = () => {
   // newToDo heijastaa koko ajan syötekentän arvoa
   const [newToDo, setNewToDo] = useState('')
   const [counter, setCounter] = useState(1)
+
+  useEffect(() => {
+    todoService
+      .getAll()
+      .then(initialTodos => {
+        setToDoList(initialTodos)
+      })
+  }, [])
 
   const addToDo = (event) => {
     event.preventDefault()
@@ -23,18 +32,28 @@ const App = () => {
       id: counter,
       check: false  
     }
-    setToDoList(toDoList.concat(toDoObject))
-    
-    setCounter(counter + 1)
-    console.log(`Amount of tasks: ${counter}`)
 
-    setNewToDo('')
+    todoService
+      .create(toDoObject)
+      .then(returnedTodo => {
+        setToDoList(toDoList.concat(returnedTodo))
+        setCounter(counter + 1)
+        console.log(`Amount of tasks: ${counter}`)
+        setNewToDo('')
+      })
+
   }
 
   const deleteToDo = (id, task) => {
     if (window.confirm('Do you want to delete this task?')) {
-      setToDoList(toDoList.filter(toDo => toDo.id !== id))
-      console.log(`Task: "${task}" was deleted successfully!`)
+      todoService
+      .deleteTodo(id)
+      .then(() => {
+
+        setToDoList(toDoList.filter(toDo => toDo.id !== id))
+        console.log(`Task: "${task}" was deleted successfully!`)
+
+      })
     }
   }
 
@@ -45,12 +64,16 @@ const App = () => {
   }
 
   const checkTodo = (id) => {
-   const updatedTodos = toDoList.map(toDo => {
-      if (toDo.id === id) {
-        toDo.check = !toDo.check
-      } return toDo
-    })
+    todoService
+    .update(id)
+    .then(() => {
+      const updatedTodos = toDoList.map(toDo => {
+        if (toDo.id === id) {
+          toDo.check = !toDo.check
+        } return toDo
+      })
       setToDoList(updatedTodos)
+    })
   }
 
   return (
