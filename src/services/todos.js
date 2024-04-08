@@ -3,23 +3,26 @@ import axios from 'axios'
 // Sovellusta voidaan käyttää nyt myös backendin osoitteesta http://localhost:3001
 const baseUrl = '/api/todos'
 
-const getAll = () => {
+const getAll = async () => {
   const request = axios.get(baseUrl)
-  return request.then(response => response.data)
+  const response = await request
+  return response.data
 }
 
-const create = newObject => {
+const create = async newObject => {
   const request = axios.post(baseUrl, newObject)
-  return request.then(response => response.data)
+  const response = await request
+  return response.data
 }
 
 const deleteTodo = (id) => {
     return axios.delete(`${baseUrl}/${id}`)
 }
 
-const update = (id) => {
+const update = async (id) => {
   const request = axios.put(`${baseUrl}/${id}`)
-  return request.then(response => response.data)
+  const response = await request
+  return response.data
 }
 
 const exportObject = {
