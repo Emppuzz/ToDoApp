@@ -1,9 +1,12 @@
-const EmptyListChecker = ({ toDoList }) => {
+const EmptyListChecker = ({ toDoList, user }) => {
+    const hasUserTodos = toDoList.some(todo => todo.user === user.id)
     return (
         <>
-            {toDoList.length ? '' : 'Nothing here yet...'}
+            {!hasUserTodos && "Nothing here yet..."}
         </>
     )
 }
 
 export default EmptyListChecker
+
+
