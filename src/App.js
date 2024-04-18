@@ -79,8 +79,8 @@ const App = () => {
     })
   }
 
-  // Asettaa syötetyn tekstin uudeksi toDoksi
-  // Nappaa kaiken mitä tekstikenttään syötetään
+  /* Asettaa syötetyn tekstin uudeksi toDoksi
+     Nappaa kaiken mitä tekstikenttään syötetään */
   const handleToDoChange = (event) => {
     setNewToDo(event.target.value)
   }

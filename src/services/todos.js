@@ -1,3 +1,4 @@
+// Selaimen ja palvelimen väliseen kommunikoitniin Axios kirjasto.
 import axios from 'axios'
 
 // Sovellusta voidaan käyttää nyt myös backendin osoitteesta http://localhost:3001
