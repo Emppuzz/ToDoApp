@@ -1,2 +1,2 @@
-Tältä sivulta löydät ToDoAppin koodin, mikä on tehty JavaScriptiä, Reactia, CSS ja HTML:llä käyttäen!
+This is the frontend of the Todo app using JavaScript, React, CSS and HTML
 
